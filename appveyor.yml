@@ -100,7 +100,6 @@ shallow_clone: true                 # default is "false"
 # scripts that run after cloning repository
 install:
   - git clone https://github.com/google/angle.git
-  - git checkout chromium/2807
   - ps: Start-FileDownload https://storage.googleapis.com/chrome-infra/depot_tools.zip
   - 7z x depot_tools.zip -odepot_tools
   - set path=%cd%\depot_tools;%path%
@@ -109,15 +108,11 @@ install:
   - set GYP_MSVS_VERSION=2015
   - dir
   - cd angle
+  - git checkout chromium/2807
   - dir
   - python scripts\bootstrap.py
   - gclient sync
-  - git checkout chromium/2807
-
-
-
-
-
+  
 
 # enable patching of AssemblyInfo.* files
 # assembly_info:
