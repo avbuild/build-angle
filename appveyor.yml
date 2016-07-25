@@ -106,13 +106,13 @@ install:
   - gclient
   - set GYP_GENERATORS=msvs
   - set GYP_MSVS_VERSION=2015
-  - dir
   - cd angle
   - git checkout e31fd8753bb62c6d951efb9be463f7671d342b15 .
-  - dir
   - python scripts\bootstrap.py
   - gclient sync
   - git checkout e31fd8753bb62c6d951efb9be463f7671d342b15 .
+  - cd build
+  - dir
   
 
 # enable patching of AssemblyInfo.* files
