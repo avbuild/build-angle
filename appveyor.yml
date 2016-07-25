@@ -104,7 +104,7 @@ install:
   - 7z x depot_tools.zip -odepot_tools
   - set path=%cd%\depot_tools;%path%
   - gclient
-  - set GYP_GENERATORS=msvc
+  - set GYP_GENERATORS=msvs
   - set GYP_MSVS_VERSION=2015
   - dir
   - cd angle
