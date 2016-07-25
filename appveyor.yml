@@ -99,13 +99,23 @@ shallow_clone: true                 # default is "false"
 
 # scripts that run after cloning repository
 install:
+  - git clone https://github.com/google/angle.git
+  - git checkout chromium/2807
   - ps: Start-FileDownload https://storage.googleapis.com/chrome-infra/depot_tools.zip
-  - ps: Start-FileDownload 'https://github.com/google/angle/archive/chromium/2807.zip'
   - 7z x depot_tools.zip -odepot_tools
-  - 7z x depot_tools.zip -oangle
   - set path=%cd%\depot_tools;%path%
-  - echo %cd%
   - gclient
+  - set GYP_GENERATORS=msvc
+  - set GYP_MSVS_VERSION=2015
+  - dir
+  - cd angle
+  - dir
+  - python scripts\bootstrap.py
+  - gclient sync
+  - git checkout chromium/2807
+
+
+
 
 
 
@@ -134,7 +144,7 @@ install:
 
 # to add several platforms to build matrix:
 platform:
- - x86
+#  - x86
  - x64
 #  - Any CPU
 
@@ -146,18 +156,18 @@ configuration:
 #  - Debug
  - Release
 
-# build:
-#   parallel: true                  # enable MSBuild parallel builds
-#   project: MyTestAzureCS.sln      # path to Visual Studio solution or project
+build:
+  parallel: true                  # enable MSBuild parallel builds
+  project: angle\ANGLE.sln      # path to Visual Studio solution or project
 #   publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
 #   publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
 #   publish_azure: true             # package Azure Cloud Service projects and push to artifacts
 #   publish_nuget: true             # package projects with .nuspec files and push to artifacts
 #   publish_nuget_symbols: true     # generate and publish NuGet symbol packages
 #   include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
-
-#   # MSBuild verbosity level
-#   verbosity: quiet|minimal|normal|detailed
+  
+  # MSBuild verbosity level
+  verbosity: normal
 
 
 # # scripts to run before build
@@ -215,10 +225,9 @@ configuration:
 # #      artifacts configuration    #
 # #---------------------------------#
 
-# artifacts:
-
-#   # pushing a single file
-#   - path: test.zip
+artifacts:
+  # pushing a single file
+  - path: angle\build\$(configuration)_$(platform)\shader_translator.exe
 
 #   # pushing a single file with environment variable in path and "Deployment name" specified
 #   - path: MyProject\bin\$(configuration)
