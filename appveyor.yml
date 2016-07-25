@@ -101,10 +101,12 @@ shallow_clone: true                 # default is "false"
 install:
   - ps: Start-FileDownload https://storage.googleapis.com/chrome-infra/depot_tools.zip
   - ps: Start-FileDownload 'https://github.com/google/angle/archive/chromium/2807.zip'
-  - 7z x *.zip
-  - SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
+  - 7z x depot_tools.zip -odepot_tools
+  - 7z x depot_tools.zip -oangle
+  - set path=%cd%\depot_tools;%path%
   - echo %cd%
-  
+  - gclient
+
 
 
 # enable patching of AssemblyInfo.* files
