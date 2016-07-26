@@ -139,22 +139,22 @@ install:
 # platform: Any CPU
 
 # to add several platforms to build matrix:
-platform:
+# platform:
 #  - Win32
- - x64
+#  - x64
 #  - Any CPU
 
 # build Configuration, i.e. Debug, Release, etc.
 # configuration: Release
 
 # to add several configurations to build matrix:
-configuration:
+# configuration:
 #  - Debug
- - Release
+#  - Release
 
-build:
-  parallel: true                  # enable MSBuild parallel builds
-  project: angle\build\ANGLE.sln      # path to Visual Studio solution or project
+# build:
+#   parallel: true                  # enable MSBuild parallel builds
+#   project: angle\build\ANGLE.sln      # path to Visual Studio solution or project
 #   publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
 #   publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
 #   publish_azure: true             # package Azure Cloud Service projects and push to artifacts
@@ -163,7 +163,7 @@ build:
 #   include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
   
   # MSBuild verbosity level
-  verbosity: normal 
+  # verbosity: normal 
   #diagnostic
 
 
@@ -176,8 +176,9 @@ build:
 # # scripts to run after build
 # after_build:
 
-# # to run your custom scripts instead of automatic MSBuild
-# build_script:
+# to run your custom scripts instead of automatic MSBuild
+build_script:
+  - msbuild /t:shader_translator /p:Configuration="Release" /p:Platform="x64"
 
 # # to disable automatic builds
 # #build: off
@@ -224,7 +225,7 @@ build:
 
 artifacts:
   # pushing a single file
-  - path: angle\build\$(configuration)_$(platform)\shader_translator.exe
+  - path: angle\build\Release_x64\shader_translator.exe
 
 #   # pushing a single file with environment variable in path and "Deployment name" specified
 #   - path: MyProject\bin\$(configuration)
