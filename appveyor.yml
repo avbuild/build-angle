@@ -179,6 +179,7 @@ install:
 # to run your custom scripts instead of automatic MSBuild
 build_script:
   - msbuild angle\build\ANGLE.sln /t:_samples_\shader_translator /p:Configuration="Release" /p:Platform="x64" /maxcpucount /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+  - msbuild angle\build\ANGLE.sln /t:_samples_\shader_translator /p:Configuration="Release" /p:Platform="Win32" /maxcpucount /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 # # to disable automatic builds
 # #build: off
@@ -226,6 +227,7 @@ build_script:
 artifacts:
   # pushing a single file
   - path: angle\build\Release_x64\shader_translator.exe
+  - path: angle\build\Release_Win32\shader_translator.exe
 
 #   # pushing a single file with environment variable in path and "Deployment name" specified
 #   - path: MyProject\bin\$(configuration)
